@@ -1,5 +1,4 @@
 - name: Install DHCP Server With Custom dhcpd.conf  
-  become: yes
   hosts: all
   tasks:
 
@@ -11,7 +10,6 @@
     - name: read file
       read_csv:
         path: vars/file.csv
-      delegate_to: localhost  
       register: linhas
 
     - name: template
