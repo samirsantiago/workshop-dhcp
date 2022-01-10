@@ -9,13 +9,13 @@
 
     - name: read file
       read_csv:
-        path: /home/devops/projects/workshop-dhcp/vars/file.csv
+        path: vars/file.csv
       delegate_to: localhost  
       register: linhas
 
     - name: template
       template:
-        src: /home/devops/projects/workshop-dhcp/templates/dhcpd.conf.j2
+        src: templates/dhcpd.conf.j2
         dest: /etc/dhcp/dhcpd.conf
       notify: restart dhcpd
 
