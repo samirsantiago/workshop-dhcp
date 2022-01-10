@@ -9,8 +9,7 @@
 
     - name: read file
       read_csv:
-        path: /tmp/file.csv
-      delegate_to: localhost
+        path: /vars/file.csv
       register: linhas
 
     - name: template
