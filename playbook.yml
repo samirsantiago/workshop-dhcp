@@ -1,0 +1,43 @@
+- name: Install DHCP Server With Custom dhcpd.conf  
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Install DHCP Server 
+      yum:
+        name: dhcp-server
+        state: latest
+
+    - name: read file
+      read_csv:
+        path: /home/devops/projects/workshop-dhcp/vars/file.csv
+      delegate_to: localhost  
+      register: linhas
+
+    - name: template
+      template:
+        src: /home/devops/projects/workshop-dhcp/templates/dhcpd.conf.j2
+        dest: /etc/dhcp/dhcpd.conf
+      notify: restart dhcpd
+
+    - name: Gathering DHCPD is started
+      service:
+        name: dhcpd
+        state: started
+        enabled: yes
+
+    - name: Gathering DHCP Server is Open in Firewalld
+      firewalld:
+        service: dhcp
+        permanent: yes
+        state: enabled
+        immediate: yes
+ 
+
+  handlers:
+    - name: restart dhcpd
+      service:
+        name: dhcpd
+        state: restarted
+
+...

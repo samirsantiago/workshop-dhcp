@@ -1,0 +1,19 @@
+# dhcpd.conf
+#
+# Sample configuration file for ISC dhcpd
+#
+
+authoritative;
+subnet 10.0.0.0 netmask 255.255.255.0 {
+range 10.0.0.200 10.0.0.254;
+option broadcast-address 10.0.0.255;
+default-lease-time 600;
+max-lease-time 7200;
+}
+
+{%for dhcp in linhas.list %}
+host {{ dhcp.HOSTNAME }} {
+hardware ethernet {{ dhcp.MAC }};
+fixed-address {{ dhcp.IP }};
+}
+{% endfor %}
