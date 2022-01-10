@@ -9,7 +9,7 @@
 
     - name: read file
       read_csv:
-        path: /home/devops/vars/file.csv
+        path: /tmp/file.csv
       delegate_to: localhost
       register: linhas
 
